@@ -134,6 +134,40 @@ DualVerse creates a **completely isolated virtual Android environment** inside y
 - 500MB free storage (for ROM + apps)
 - ARM64-v8a processor
 
+---
+
+## 🆕 What's New (v1.1 Stable)
+
+### ✅ Latest Update - March 2026
+
+| Feature | Status | Description |
+|---------|--------|-------------|
+| 🎮 **Multi-Instance** | ✅ Added | Run 3+ game accounts simultaneously |
+| ☁️ **Cloud Sync** | ✅ Added | Sync game saves across devices |
+| 📦 **Custom ROMs** | ✅ Added | Choose Android 8.1/10/11 containers |
+| ⚡ **Performance Profiles** | ✅ Added | Power Saver / Balanced / High Performance |
+
+### 📝 Changelog
+
+**v1.1 (Stable)**
+- ✅ MultiInstanceManager: Up to 5 simultaneous accounts
+- ✅ CloudSyncManager: Auto-sync game saves on WiFi
+- ✅ RomSelector: 4 ROM variants available
+- ✅ PerformanceProfiles: Custom performance tuning
+
+**v1.0 (Stable)**
+- ✅ Core virtualization engine
+- ✅ Device spoofing & anti-detection
+- ✅ Android 8.1 ROM (193MB)
+- ✅ Termux build support
+
+**Beta Branch (v1.2)**
+- ✅ Material You UI redesign
+- ✅ Floating dual-mode windows
+- 🔄 Custom themes (in progress)
+
+---
+
 ### ⚠️ Important: Build It Yourself
 
 > **GitHub Actions builds are currently not working, so no pre-built APK is available for download.**
