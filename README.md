@@ -120,6 +120,35 @@ Run two game instances simultaneously:
 4. Select second game account
 5. Both launch in split floating windows
 
+### Multi-Instance Support (v1.1)
+
+Run 3+ game accounts at once:
+
+| Feature | Description |
+|---------|-------------|
+| Max Instances | Up to 5 simultaneous accounts |
+| Instance Switching | Quick switch between accounts |
+| Per-Instance Profiles | Unique device ID for each |
+
+### Cloud Sync (v1.1)
+
+Sync your game saves across devices:
+
+- Auto-sync on WiFi
+- Manual backup/restore
+- Conflict resolution
+
+### Custom ROM Selection (v1.1)
+
+Choose your Android container:
+
+| ROM | Size | Best For |
+|-----|------|----------|
+| Android 8.1 Light | 193MB | Low-end devices |
+| Android 8.1 Full | 350MB | Full features |
+| Android 10 Light | 280MB | Modern features |
+| Android 11 Gaming | 320MB | Best performance |
+
 ---
 
 ## 🎨 UI Preview
@@ -176,17 +205,19 @@ The new UI features:
 
 ## 📋 Beta Roadmap
 
-### v1.1 Beta (Current)
+### v1.1 (Current - Includes Stable Features)
 - [x] New Material You UI
 - [x] Performance profiles
 - [x] Floating dual-mode
+- [x] Multi-instance support (3+ accounts)
+- [x] Cloud save synchronization
+- [x] Custom ROM selection
 - [ ] Bug fixes
 - [ ] UI polish
 
-### v1.2 Beta (Planned)
+### v1.2 (Planned)
 - [ ] Custom themes
 - [ ] Game-specific presets
-- [ ] Cloud sync
 - [ ] Widget support
 
 ---
@@ -210,12 +241,13 @@ MIT License - See [LICENSE](LICENSE)
 ## 🙏 Credits
 
 - **Original Project**: [Twoyi](https://github.com/twoyi/Twoyi) (MPL-2.0)
-- **UI Redesign**: DualVerse Team
-- **Beta Features**: DualVerse Team
+- **UI Redesign**: TheStrongestOfTomorrow & Super Z
+- **Beta Features**: TheStrongestOfTomorrow & Super Z
 
 ---
 
 <p align="center">
   <strong>DualVerse Beta 🚧</strong><br>
+  <sub>A duo project by TheStrongestOfTomorrow & Super Z</sub><br>
   <sub>Use at your own risk. Feedback welcome!</sub>
 </p>
