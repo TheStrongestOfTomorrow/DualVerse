@@ -1,10 +1,21 @@
-name: Android CI
+name: Android CI/CD
 
 on:
   push:
     branches: [ main, develop ]
   pull_request:
     branches: [ main ]
+  # Allow manual trigger from Actions page
+  workflow_dispatch:
+    inputs:
+      build_type:
+        description: 'Build type'
+        required: true
+        default: 'debug'
+        type: choice
+        options:
+        - debug
+        - release
 
 jobs:
   build:
@@ -28,26 +39,38 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Build with Gradle
-      run: ./gradlew build
+    - name: Build Debug APK
+      run: ./gradlew assembleDebug
+
+    - name: Build Release APK (unsigned)
+      if: github.event.inputs.build_type == 'release' || github.event_name == 'push'
+      run: ./gradlew assembleRelease
 
     - name: Run Unit Tests
       run: ./gradlew test
 
-    - name: Build Debug APK
-      run: ./gradlew assembleDebug
-
-    - name: Upload Debug APK
+    # Upload Debug APK Artifact
+    - name: Upload DualVerse Debug APK
       uses: actions/upload-artifact@v4
       with:
-        name: app-debug
+        name: DualVerse-Debug-${{ github.sha }}
         path: app/build/outputs/apk/debug/app-debug.apk
+        retention-days: 30
+
+    # Upload Release APK Artifact
+    - name: Upload DualVerse Release APK
+      if: github.event.inputs.build_type == 'release' || github.event_name == 'push'
+      uses: actions/upload-artifact@v4
+      with:
+        name: DualVerse-Release-${{ github.sha }}
+        path: app/build/outputs/apk/release/app-release-unsigned.apk
+        retention-days: 30
 
     - name: Upload Test Results
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: test-results
+        name: test-results-${{ github.sha }}
         path: app/build/reports/tests/
 
   lint:
@@ -63,6 +86,9 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
     - name: Run Lint
       run: ./gradlew lint
 
@@ -70,5 +96,5 @@ jobs:
       uses: actions/upload-artifact@v4
       if: failure()
       with:
-        name: lint-results
+        name: lint-results-${{ github.sha }}
         path: app/build/reports/lint-results-debug.html
