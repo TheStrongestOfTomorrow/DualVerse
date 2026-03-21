@@ -154,12 +154,32 @@ cd DualVerse
 # Initialize submodules
 git submodule update --init --recursive
 
+# Download the ROM (required - 193MB)
+# The ROM is based on Twoyi's Android 8.1 container system
+./scripts/download-rom.sh
+
 # Build debug APK
 ./gradlew assembleDebug
 
 # Build release APK
 ./gradlew assembleRelease
 ```
+
+### ROM Download
+
+The Android container ROM (193MB) is required to build the app. It's excluded from the repository due to GitHub's file size limits.
+
+**Option 1: Automatic download**
+```bash
+./scripts/download-rom.sh
+```
+
+**Option 2: Manual download**
+1. Download the Twoyi APK from [Releases](https://github.com/twoyi/twoyi/releases)
+2. Extract `assets/rootfs.7z` from the APK (it's a ZIP file)
+3. Copy to `app/src/main/assets/rootfs.7z`
+
+The ROM contains a minimal Android 8.1 system optimized for containerization.
 
 ---
 
@@ -328,7 +348,8 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 - [x] Core virtualization engine
 - [x] Basic device spoofing
 - [x] Single app cloning
-- [x] Android 11 ROM integration
+- [x] Android 8.1 ROM integration (193MB compressed, based on Twoyi)
+- [x] Native container libraries (libloader.so, libtwoyi.so, libp7zip.so)
 
 ### Version 1.1 (Q2 2026)
 - [ ] Multi-instance support (3+ accounts)
@@ -371,6 +392,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
+- **[Twoyi](https://github.com/twoyi/Twoyi)** - The containerization engine and ROM foundation
 - The Android Open Source Project
 - Linux Containers (LXC) community
 - All our contributors and testers

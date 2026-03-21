@@ -110,3 +110,8 @@ coverage/
 *.bak
 *.swp
 *.tmp
+
+# Large assets (download separately)
+app/src/main/assets/rootfs.7z
+app/src/main/assets/*.7z
+*.7z
