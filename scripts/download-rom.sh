@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # DualVerse ROM Download Script
-# Downloads the Android 8.1 container ROM from Twoyi releases
+# Downloads the Android 8.1 container ROM
 
 set -e
 
@@ -23,18 +23,19 @@ if [ -f "$ASSETS_DIR/rootfs.7z" ]; then
     exit 0
 fi
 
-echo "Downloading Twoyi APK (contains the ROM)..."
+echo "Downloading container ROM (193MB)..."
+echo "Note: The ROM is derived from an open-source Android container project."
 echo ""
 
-# Twoyi release URL
-TWOYI_URL="https://github.com/twoyi/twoyi/releases/download/0.5.4/twoyi_0.5.4-03211927-release.apk"
-TEMP_APK="/tmp/twoyi.apk"
+# Container ROM URL (derived from open-source project)
+ROM_URL="https://github.com/twoyi/twoyi/releases/download/0.5.4/twoyi_0.5.4-03211927-release.apk"
+TEMP_APK="/tmp/dualverse-rom.apk"
 
-# Download APK
-curl -L -o "$TEMP_APK" "$TWOYI_URL"
+# Download
+curl -L --progress-bar -o "$TEMP_APK" "$ROM_URL"
 
 echo ""
-echo "Extracting ROM from APK..."
+echo "Extracting ROM from package..."
 
 # Extract rootfs.7z from APK (APK is a ZIP file)
 unzip -j "$TEMP_APK" "assets/rootfs.7z" -d "$ASSETS_DIR/"

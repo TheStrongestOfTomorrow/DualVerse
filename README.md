@@ -12,8 +12,8 @@
   <a href="#features">Features</a> •
   <a href="#how-it-works">How It Works</a> •
   <a href="#installation">Installation</a> •
+  <a href="#-termux-support-no-pc-needed">Termux</a> •
   <a href="#architecture">Architecture</a> •
-  <a href="#contributing">Contributing</a> •
   <a href="#license">License</a>
 </p>
 
@@ -46,7 +46,7 @@ DualVerse creates a **completely isolated virtual Android environment** inside y
 
 1. **No Root Required** - Works on any unrooted device
 2. **Undetectable** - The virtualized environment appears as a completely separate device
-3. **Lightweight** - Only ~200MB Android 11 custom ROM
+3. **Lightweight** - Only ~200MB Android 8.1 container ROM
 4. **High Performance** - Native-speed execution through optimized virtualization
 5. **Simple UI** - One-tap account switching and management
 
@@ -94,8 +94,8 @@ DualVerse creates a **completely isolated virtual Android environment** inside y
 ├─────────────────────────────────────────────────────────────┤
 │                                                              │
 │  ┌─────────────────────┐      ┌─────────────────────┐      │
-│  │   HOST ANDROID      │      │  VIRTUAL ANDROID 11  │      │
-│  │   (Your Device)     │      │  (200MB Custom ROM)  │      │
+│  │   HOST ANDROID      │      │  VIRTUAL ANDROID    │      │
+│  │   (Your Device)     │      │  (200MB Container)  │      │
 │  ├─────────────────────┤      ├─────────────────────┤      │
 │  │ • Primary Account   │      │ • Secondary Account  │      │
 │  │ • Original Apps     │      │ • Cloned Apps        │      │
@@ -118,7 +118,7 @@ DualVerse creates a **completely isolated virtual Android environment** inside y
 
 ### Technical Implementation
 
-1. **Micro-ROM Technology**: A stripped-down Android 11 system image (~200MB) containing only essential components
+1. **Micro-ROM Technology**: A stripped-down Android 8.1 system image (~193MB compressed) containing only essential components
 2. **Container Virtualization**: Lightweight OS-level virtualization, not hardware emulation
 3. **Namespace Isolation**: Linux namespace-based separation for processes, network, and filesystem
 4. **Binder IPC Bridge**: Custom inter-process communication for app-host interaction
@@ -134,52 +134,174 @@ DualVerse creates a **completely isolated virtual Android environment** inside y
 - 500MB free storage (for ROM + apps)
 - ARM64-v8a processor
 
-### Download
+### Quick Download
+
+Download the latest APK from [Releases](https://github.com/TheStrongestOfTomorrow/DualVerse/releases)
+
+---
+
+## 📱 Termux Support (No PC Needed!)
+
+**The easiest way to install DualVerse directly on your phone without a PC, ADB, or Android Studio!**
+
+### What is Termux?
+
+Termux is a powerful terminal emulator for Android that lets you run Linux commands. With Termux, you can build and install DualVerse entirely from your phone!
+
+### Quick Install (One Command)
+
+Open Termux and paste this:
 
 ```bash
-# Clone the repository
-git clone https://github.com/TheStrongestOfTomorrow/DualVerse.git
-
-# Or download the latest APK from Releases
-# https://github.com/TheStrongestOfTomorrow/DualVerse/releases
+pkg install git wget -y && bash -c "$(wget -qO- https://raw.githubusercontent.com/TheStrongestOfTomorrow/DualVerse/main/scripts/termux-install.sh)"
 ```
 
-### Build from Source
+### Step-by-Step Termux Installation
+
+#### 1. Install Termux
+
+Download Termux from **F-Droid** (NOT Play Store - it's outdated):
+- Direct download: https://f-droid.org/repo/com.termux_1020.apk
+- Or visit: https://f-droid.org/en/packages/com.termux/
+
+> ⚠️ **Important**: The Play Store version of Termux is outdated and won't work. Use F-Droid version!
+
+#### 2. Setup Termux Environment
+
+Open Termux and run:
 
 ```bash
-# Clone repository
+# Update packages
+pkg update && pkg upgrade -y
+
+# Install required packages
+pkg install git wget curl zip unzip -y
+
+# Install build tools
+pkg install openjdk-17 gradle -y
+
+# Install Android SDK
+pkg install android-tools -y
+```
+
+#### 3. Clone and Setup DualVerse
+
+```bash
+# Navigate to shared storage
+cd ~/storage/downloads
+
+# Clone the repository
 git clone https://github.com/TheStrongestOfTomorrow/DualVerse.git
 cd DualVerse
 
-# Initialize submodules
-git submodule update --init --recursive
+# Download the ROM (193MB)
+bash scripts/download-rom.sh
+```
 
-# Download the ROM (required - 193MB)
-# The ROM is based on Twoyi's Android 8.1 container system
-./scripts/download-rom.sh
+#### 4. Build the APK
 
-# Build debug APK
+```bash
+# Set Java environment
+export JAVA_HOME=/data/data/com.termux/files/usr/lib/jvm/java-17-openjdk
+
+# Build debug APK (takes 5-10 minutes)
 ./gradlew assembleDebug
 
-# Build release APK
-./gradlew assembleRelease
+# APK will be at:
+# app/build/outputs/apk/debug/app-debug.apk
 ```
 
-### ROM Download
+#### 5. Install the APK
 
-The Android container ROM (193MB) is required to build the app. It's excluded from the repository due to GitHub's file size limits.
-
-**Option 1: Automatic download**
+**Option A: Using Termux**
 ```bash
-./scripts/download-rom.sh
+# Copy APK to downloads folder
+cp app/build/outputs/apk/debug/app-debug.apk ~/storage/downloads/
+
+# Open file manager and install
+am start -a android.intent.action.VIEW -d file:///sdcard/Download/app-debug.apk -t application/vnd.android.package-archive
 ```
 
-**Option 2: Manual download**
-1. Download the Twoyi APK from [Releases](https://github.com/twoyi/twoyi/releases)
-2. Extract `assets/rootfs.7z` from the APK (it's a ZIP file)
-3. Copy to `app/src/main/assets/rootfs.7z`
+**Option B: Manual Install**
+```bash
+# APK is now in your Downloads folder
+# Open your file manager app
+# Navigate to Downloads
+# Tap on app-debug.apk to install
+```
 
-The ROM contains a minimal Android 8.1 system optimized for containerization.
+### Termux One-Liner (Full Auto)
+
+For advanced users, here's a complete one-liner:
+
+```bash
+pkg update && pkg upgrade -y && pkg install git wget openjdk-17 gradle android-tools -y && cd ~/storage/downloads && git clone https://github.com/TheStrongestOfTomorrow/DualVerse.git && cd DualVerse && bash scripts/download-rom.sh && export JAVA_HOME=/data/data/com.termux/files/usr/lib/jvm/java-17-openjdk && ./gradlew assembleDebug && cp app/build/outputs/apk/debug/app-debug.apk ~/storage/downloads/DualVerse.apk && echo "✅ APK ready at: ~/storage/downloads/DualVerse.apk"
+```
+
+### Termux Troubleshooting
+
+#### Storage Permission Issue
+```bash
+# Grant storage permission
+termux-setup-storage
+
+# If asked, tap "Allow"
+```
+
+#### Java Not Found
+```bash
+# Install OpenJDK 17
+pkg install openjdk-17 -y
+
+# Set JAVA_HOME
+export JAVA_HOME=/data/data/com.termux/files/usr/lib/jvm/java-17-openjdk
+
+# Add to profile for persistence
+echo 'export JAVA_HOME=/data/data/com.termux/files/usr/lib/jvm/java-17-openjdk' >> ~/.bashrc
+```
+
+#### Gradle Build Fails
+```bash
+# Clear gradle cache
+rm -rf ~/.gradle
+rm -rf app/build
+
+# Retry build
+./gradlew clean assembleDebug
+```
+
+#### Out of Memory
+```bash
+# Increase Java heap size
+export _JAVA_OPTIONS="-Xmx2g"
+
+# Then rebuild
+./gradlew assembleDebug
+```
+
+### Termux Build Script
+
+Create a reusable build script:
+
+```bash
+# Create the script
+cat > ~/build-dualverse.sh << 'EOF'
+#!/bin/bash
+cd ~/storage/downloads/DualVerse
+export JAVA_HOME=/data/data/com.termux/files/usr/lib/jvm/java-17-openjdk
+export _JAVA_OPTIONS="-Xmx2g"
+git pull origin main
+./gradlew assembleDebug
+cp app/build/outputs/apk/debug/app-debug.apk ~/storage/downloads/DualVerse.apk
+echo "✅ Build complete! APK: ~/storage/downloads/DualVerse.apk"
+EOF
+
+# Make executable
+chmod +x ~/build-dualverse.sh
+
+# Run anytime with:
+~/build-dualverse.sh
+```
 
 ---
 
@@ -237,7 +359,7 @@ cd DualVerse
 ./scripts/download-rom.sh
 
 # Or manually:
-# 1. Download Twoyi APK: https://github.com/twoyi/twoyi/releases/download/0.5.4/twoyi_0.5.4-03211927-release.apk
+# 1. Download container APK from releases
 # 2. Extract rootfs.7z from the APK (it's a ZIP file)
 # 3. Copy to app/src/main/assets/rootfs.7z
 ```
@@ -504,15 +626,13 @@ security/
 └── KeyStoreBridge.kt          # Secure credential storage
 ```
 
-#### 3. Account Manager (`core/accounts/`)
-Manages multiple gaming accounts and their associated data.
+#### 3. ROM Management (`core/rom/`)
+Manages the container Android system image.
 
 ```
-accounts/
-├── AccountManager.kt          # Account CRUD operations
-├── AppCloner.kt              # App duplication system
-├── DataSyncManager.kt        # Cross-account data synchronization
-└── SessionManager.kt         # Login state management
+rom/
+├── RomManager.kt              # ROM extraction and management
+└── ContainerLoader.kt         # Container lifecycle management
 ```
 
 #### 4. UI Layer (`core/ui/`)
@@ -641,8 +761,9 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 - [x] Core virtualization engine
 - [x] Basic device spoofing
 - [x] Single app cloning
-- [x] Android 8.1 ROM integration (193MB compressed, based on Twoyi)
-- [x] Native container libraries (libloader.so, libtwoyi.so, libp7zip.so)
+- [x] Android 8.1 ROM integration (193MB compressed)
+- [x] Native container libraries (libloader.so, libdualverse.so, libp7zip.so)
+- [x] Termux support for building without PC
 
 ### Version 1.1 (Q2 2026)
 - [ ] Multi-instance support (3+ accounts)
@@ -667,13 +788,16 @@ DualVerse uses sophisticated anti-detection that makes virtualized instances ind
 No! DualVerse works completely without root access. The virtualization happens at the application level.
 
 ### How much storage does it need?
-The base app is ~50MB, plus the 200MB custom ROM. Each cloned app adds approximately the same size as the original app.
+The base app is ~50MB, plus the 200MB container ROM. Each cloned app adds approximately the same size as the original app.
 
 ### Can I use this with any app?
 Yes! While optimized for games, DualVerse can clone and run any Android app in the virtualized environment.
 
 ### Is my data safe?
 Absolutely. All data is stored locally on your device with encryption. We collect zero telemetry or personal data.
+
+### Can I build it on my phone?
+Yes! Use Termux to build DualVerse directly on your Android device. See the [Termux Support](#-termux-support-no-pc-needed) section above.
 
 ---
 
@@ -685,7 +809,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- **[Twoyi](https://github.com/twoyi/Twoyi)** - The containerization engine and ROM foundation
+- **Container Engine**: Based on virtualization concepts from open-source Android container projects
+- **ROM Foundation**: The Android 8.1 container system is derived from the [Twoyi Project](https://github.com/twoyi/Twoyi) (MPL-2.0 License)
 - The Android Open Source Project
 - Linux Containers (LXC) community
 - All our contributors and testers
