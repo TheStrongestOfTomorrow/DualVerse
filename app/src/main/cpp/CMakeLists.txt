@@ -15,11 +15,6 @@ add_library(
     dualverse-native
     SHARED
     native.cpp
-    container.cpp
-    memory_bridge.cpp
-    network_namespace.cpp
-    device_spoofer.cpp
-    storage_isolator.cpp
 )
 
 # Find required libraries
