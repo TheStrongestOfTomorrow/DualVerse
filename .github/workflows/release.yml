@@ -2,15 +2,8 @@ name: Auto APK Release
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches: [ main ]
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version tag (e.g., v1.0.0)'
-        required: true
-        default: 'v1.0.0'
-        type: string
 
 permissions:
   contents: write
@@ -44,50 +37,51 @@ jobs:
     - name: Build Release APK
       run: ./gradlew assembleRelease
 
-    - name: Get version name
+    - name: Get version info
       id: version
       run: |
-        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-          echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
-        else
-          echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-        fi
+        # Generate version based on date and short commit hash
+        VERSION="v$(date +'%Y.%m.%d')-$(git rev-parse --short HEAD)"
+        echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+        echo "Generated version: $VERSION"
 
     - name: Rename APKs
       run: |
         mv app/build/outputs/apk/debug/app-debug.apk DualVerse-${{ steps.version.outputs.VERSION }}-debug.apk
         mv app/build/outputs/apk/release/app-release-unsigned.apk DualVerse-${{ steps.version.outputs.VERSION }}-release.apk
 
-    - name: Generate Release Notes
-      id: notes
-      run: |
-        echo "## DualVerse ${{ steps.version.outputs.VERSION }}" > release_notes.md
-        echo "" >> release_notes.md
-        echo "### What's New" >> release_notes.md
-        echo "- Multi-account gaming support" >> release_notes.md
-        echo "- Container-based virtualization" >> release_notes.md
-        echo "- Device fingerprint spoofing" >> release_notes.md
-        echo "- Built-in game account manager" >> release_notes.md
-        echo "" >> release_notes.md
-        echo "### Downloads" >> release_notes.md
-        echo "| File | Description |" >> release_notes.md
-        echo "|------|-------------|" >> release_notes.md
-        echo "| \`DualVerse-${{ steps.version.outputs.VERSION }}-debug.apk\` | Debug build with logging |" >> release_notes.md
-        echo "| \`DualVerse-${{ steps.version.outputs.VERSION }}-release.apk\` | Release build (optimized) |" >> release_notes.md
-        echo "" >> release_notes.md
-        echo "### Requirements" >> release_notes.md
-        echo "- Android 8.0+ (API 26+)" >> release_notes.md
-        echo "- ARM64 device" >> release_notes.md
-        echo "- ~200MB storage for ROM" >> release_notes.md
+    - name: Delete old releases
+      uses: dev-drprasad/delete-older-releases@v0.3.2
+      with:
+        keep_latest: 5
+        delete_tag_pattern: v20
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Create GitHub Release
+    - name: Create/Update Latest Release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ steps.version.outputs.VERSION }}
-        name: DualVerse ${{ steps.version.outputs.VERSION }}
-        body_path: release_notes.md
+        tag_name: latest
+        name: DualVerse Latest Build
+        body: |
+          ## DualVerse Latest Auto-Build
+          
+          **Build:** ${{ steps.version.outputs.VERSION }}
+          **Commit:** ${{ github.sha }}
+          **Date:** ${{ github.event.head_commit.timestamp }}
+          
+          ### Downloads
+          | File | Description |
+          |------|-------------|
+          | `DualVerse-${{ steps.version.outputs.VERSION }}-debug.apk` | Debug build with logging |
+          | `DualVerse-${{ steps.version.outputs.VERSION }}-release.apk` | Release build (optimized) |
+          
+          ### Requirements
+          - Android 8.0+ (API 26+)
+          - ARM64 device
+          - ~200MB storage for ROM
         draft: false
-        prerelease: ${{ contains(steps.version.outputs.VERSION, 'beta') || contains(steps.version.outputs.VERSION, 'alpha') }}
+        prerelease: false
         files: |
           DualVerse-${{ steps.version.outputs.VERSION }}-debug.apk
           DualVerse-${{ steps.version.outputs.VERSION }}-release.apk
@@ -97,8 +91,8 @@ jobs:
     - name: Upload APK Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: DualVerse-${{ steps.version.outputs.VERSION }}
+        name: DualVerse-Latest
         path: |
           DualVerse-${{ steps.version.outputs.VERSION }}-debug.apk
           DualVerse-${{ steps.version.outputs.VERSION }}-release.apk
-        retention-days: 90
+        retention-days: 30
