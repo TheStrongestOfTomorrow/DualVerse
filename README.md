@@ -183,6 +183,299 @@ The ROM contains a minimal Android 8.1 system optimized for containerization.
 
 ---
 
+## 🎮 Local Testing & Game Setup Guide
+
+This section covers everything you need to test DualVerse locally and set up games for multi-account gameplay.
+
+### Prerequisites
+
+| Requirement | Minimum | Recommended |
+|-------------|---------|-------------|
+| Android Studio | Hedgehog (2023.1) | Latest |
+| JDK | 17 | 21 |
+| Android SDK | API 24 | API 34 |
+| NDK | r22 | r25 |
+| Device RAM | 4GB | 8GB+ |
+| Device Storage | 1GB free | 2GB+ free |
+
+### Step-by-Step Setup
+
+#### 1. Install Android Studio
+
+**Windows/macOS/Linux:**
+1. Download from [developer.android.com/studio](https://developer.android.com/studio)
+2. Install with default settings
+3. Open Android Studio → Settings → Appearance & Behavior → System Settings → Android SDK
+4. Install SDK Platform 34 (Android 14)
+5. Install SDK Build-Tools 34
+6. Install NDK (Side by side) → r25.x
+7. Install CMake 3.22.1
+
+**Linux (Ubuntu/Debian):**
+```bash
+# Install JDK 17
+sudo apt update
+sudo apt install openjdk-17-jdk
+
+# Install Android Studio via Snap
+sudo snap install android-studio --classic
+
+# Or download manually
+wget https://dl.google.com/dl/android/studio/ide-zips/2023.1.1.26/android-studio-2023.1.1.26-linux.tar.gz
+tar -xzf android-studio-*.tar.gz
+./android-studio/bin/studio.sh
+```
+
+#### 2. Clone and Set Up Project
+
+```bash
+# Clone the repository
+git clone https://github.com/TheStrongestOfTomorrow/DualVerse.git
+cd DualVerse
+
+# Download the ROM (193MB) - REQUIRED!
+./scripts/download-rom.sh
+
+# Or manually:
+# 1. Download Twoyi APK: https://github.com/twoyi/twoyi/releases/download/0.5.4/twoyi_0.5.4-03211927-release.apk
+# 2. Extract rootfs.7z from the APK (it's a ZIP file)
+# 3. Copy to app/src/main/assets/rootfs.7z
+```
+
+#### 3. Build the APK
+
+**Using Android Studio:**
+1. Open Android Studio
+2. File → Open → Select the DualVerse folder
+3. Wait for Gradle sync to complete
+4. Build → Make Project (Ctrl+F9)
+5. Build → Build Bundle(s) / APK(s) → Build APK(s)
+6. APK will be in `app/build/outputs/apk/debug/app-debug.apk`
+
+**Using Command Line:**
+```bash
+# Make gradlew executable (Linux/macOS)
+chmod +x gradlew
+
+# Build debug APK
+./gradlew assembleDebug
+
+# Build release APK (requires signing)
+./gradlew assembleRelease
+
+# Output location:
+# app/build/outputs/apk/debug/app-debug.apk
+# app/build/outputs/apk/release/app-release.apk
+```
+
+#### 4. Install on Device
+
+**Via ADB (USB Debugging):**
+```bash
+# Enable USB Debugging on your device:
+# Settings → About Phone → Tap "Build Number" 7 times
+# Settings → Developer Options → Enable USB Debugging
+
+# Connect device and verify
+adb devices
+
+# Install the APK
+adb install app/build/outputs/apk/debug/app-debug.apk
+
+# Or install with existing app data preserved
+adb install -r app/build/outputs/apk/debug/app-debug.apk
+```
+
+**Via Android Studio:**
+1. Connect your device via USB
+2. Enable USB Debugging
+3. Run → Run 'app' (Shift+F10)
+4. Select your device from the list
+
+**Transfer APK Manually:**
+```bash
+# Copy APK to device
+adb push app/build/outputs/apk/debug/app-debug.apk /sdcard/Download/
+
+# Then on your device, open file manager and install
+```
+
+### First-Time Setup
+
+When you first open DualVerse:
+
+1. **Grant Permissions** - Allow all requested permissions:
+   - Storage (for ROM extraction)
+   - Phone (for device ID spoofing)
+   - Location (optional, for some games)
+
+2. **ROM Extraction** - Wait for the ROM to extract (1-3 minutes):
+   - Progress bar will show extraction status
+   - ~500MB will be extracted to app data directory
+
+3. **Container Initialization** - First boot takes 10-30 seconds:
+   - The virtual Android system boots inside the container
+   - You'll see a "Ready" status when complete
+
+### Adding Games & Accounts
+
+#### Method 1: Clone Existing Game
+
+1. Open DualVerse app
+2. Tap **"Clone App"** button
+3. Select a game from the list of installed apps
+4. Wait for cloning to complete
+5. The cloned game will appear in your accounts list
+
+#### Method 2: Install APK Directly
+
+```bash
+# Install APK into the container
+adb shell
+# Inside the container environment:
+pm install /path/to/game.apk
+```
+
+#### Method 3: Import from Host Device
+
+1. Ensure the game is installed on your main device
+2. Open DualVerse → Settings → Import App
+3. Select the game to import
+4. App data will be copied to the container
+
+### Running Games
+
+#### Single Account Mode
+1. Open DualVerse
+2. Tap on the cloned game icon
+3. Game launches inside the container
+4. Log in with your account
+
+#### Dual Account Mode
+1. Open DualVerse
+2. Go to Accounts tab
+3. Tap **"+"** to add another clone of the same game
+4. Tap **"Dual View"** to run both simultaneously
+5. Each instance runs independently with different accounts
+
+### Supported Games Setup
+
+| Game | Special Setup | Notes |
+|------|---------------|-------|
+| **Roblox** | None required | Works out of the box. Root detection is bypassed. |
+| **PUBG Mobile** | Disable anti-cheat in settings | May need to clear data between accounts |
+| **Free Fire** | None required | Works with all server regions |
+| **Mobile Legends** | None required | Each instance gets unique device ID |
+| **Genshin Impact** | Disable anti-cheat | Works with HoYoverse accounts |
+| **COD Mobile** | None required | Activision accounts supported |
+| **Clash of Clans** | Supercell ID recommended | Switch accounts via Supercell ID |
+
+### Troubleshooting
+
+#### App Crashes on Launch
+```bash
+# Check logcat for errors
+adb logcat -s DualVerse:* DualVerse-Native:*
+
+# Common fixes:
+# 1. Clear app data
+adb shell pm clear com.dualverse
+
+# 2. Reinstall
+adb uninstall com.dualverse
+adb install app-debug.apk
+
+# 3. Check device compatibility
+adb shell getprop ro.product.cpu.abi
+# Should return: arm64-v8a
+```
+
+#### ROM Extraction Fails
+```bash
+# Check available storage
+adb shell df -h /data
+
+# Need at least 1GB free space
+# Clear cache if needed:
+adb shell pm trim-caches 1G
+```
+
+#### Game Not Cloning
+```bash
+# Check if game is installed
+adb shell pm list packages | grep <game-name>
+
+# Some games use split APKs
+adb shell pm list packages -f
+# Note the path, then:
+adb pull /path/to/base.apk
+```
+
+#### Performance Issues
+1. **Lower graphics settings** in-game
+2. **Enable GPU acceleration** in DualVerse settings
+3. **Close background apps** on host device
+4. **Use performance mode** in device settings
+
+### Testing Commands
+
+```bash
+# View container status
+adb shell "dumpsys activity top | grep -A 10 ACTIVITY"
+
+# Check memory usage
+adb shell "dumpsys meminfo com.dualverse"
+
+# Monitor performance
+adb shell "top -n 1 | grep dualverse"
+
+# View native logs
+adb logcat -s DualVerse-Native:V
+
+# View container logs
+adb logcat -s ContainerLoader:* RomManager:*
+
+# Check extracted ROM
+adb shell "ls -la /data/data/com.dualverse/rootfs/"
+
+# Test native libraries
+adb shell "run-as com.dualverse ls -R lib/"
+```
+
+### Development & Debugging
+
+#### Enable Debug Mode
+1. Open DualVerse → Settings
+2. Tap "Build Number" 7 times
+3. Developer Options appear
+4. Enable "Debug Mode"
+5. Enable "Verbose Logging"
+
+#### View Internal State
+```bash
+# Access container filesystem
+adb shell run-as com.dualverse
+cd rootfs/
+
+# View ROM info
+cat rom.ini
+
+# Check container processes
+ps -ef | grep dualverse
+```
+
+#### Build with Debug Symbols
+```bash
+# Edit app/build.gradle.kts
+# In android.defaultConfig:
+ndk { debugSymbolLevel 'FULL' }
+
+# Rebuild
+./gradlew clean assembleDebug
+```
+
+---
+
 ## 🏗️ Architecture
 
 ### Core Components
