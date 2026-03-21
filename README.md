@@ -68,6 +68,43 @@ The beta branch features a completely redesigned user interface:
 
 ## 📥 Installation
 
+---
+
+## 🆕 What's New
+
+### ✅ v1.1 Update (March 2026)
+
+| Feature | Status | Description |
+|---------|--------|-------------|
+| 🎮 **Multi-Instance** | ✅ Added | Run 3+ game accounts simultaneously |
+| ☁️ **Cloud Sync** | ✅ Added | Sync game saves across devices |
+| 📦 **Custom ROMs** | ✅ Added | Android 8.1/10/11 variants |
+| ⚡ **Performance Profiles** | ✅ Added | Power Saver / Balanced / High Perf |
+| 🎨 **New UI** | ✅ Beta | Material You redesign |
+| 📺 **Floating Windows** | ✅ Beta | Dual-mode floating windows |
+
+### 📝 Changelog
+
+**Beta v1.2 (Current)**
+- ✅ Material You UI redesign
+- ✅ Floating dual-mode windows
+- ✅ All v1.1 stable features included
+- 🔄 Custom themes (in progress)
+- 🔄 Game-specific presets (in progress)
+
+**Stable v1.1**
+- ✅ MultiInstanceManager (up to 5 accounts)
+- ✅ CloudSyncManager (auto-sync on WiFi)
+- ✅ RomSelector (4 ROM variants)
+- ✅ PerformanceProfiles (3 presets + custom)
+
+**Stable v1.0**
+- ✅ Core virtualization engine
+- ✅ Device spoofing
+- ✅ Android 8.1 ROM (193MB)
+
+---
+
 ### ⚠️ Important: Build It Yourself
 
 > **No pre-built APK available.** You must build from source.
@@ -203,22 +240,34 @@ The new UI features:
 
 ---
 
-## 📋 Beta Roadmap
+## 📋 Roadmap
 
-### v1.1 (Current - Includes Stable Features)
-- [x] New Material You UI
-- [x] Performance profiles
-- [x] Floating dual-mode
+### ✅ v1.0 (Stable)
+- [x] Core virtualization engine
+- [x] Device spoofing
+- [x] Android 8.1 ROM (193MB)
+
+### ✅ v1.1 (Stable)
 - [x] Multi-instance support (3+ accounts)
 - [x] Cloud save synchronization
 - [x] Custom ROM selection
+- [x] Performance profiles
+
+### 🔄 v1.2 Beta (Current Branch)
+- [x] New Material You UI
+- [x] Floating dual-mode windows
+- [x] Multi-instance support
+- [x] Cloud sync
+- [x] Custom ROM selection
 - [ ] Bug fixes
 - [ ] UI polish
-
-### v1.2 (Planned)
 - [ ] Custom themes
 - [ ] Game-specific presets
-- [ ] Widget support
+
+### 📅 v2.0 (Planned)
+- [ ] Android 14 ROM support
+- [ ] x86 emulator
+- [ ] Plugin system
 
 ---
 
