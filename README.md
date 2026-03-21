@@ -134,9 +134,16 @@ DualVerse creates a **completely isolated virtual Android environment** inside y
 - 500MB free storage (for ROM + apps)
 - ARM64-v8a processor
 
-### Quick Download
+### ⚠️ Important: Build It Yourself
 
-Download the latest APK from [Releases](https://github.com/TheStrongestOfTomorrow/DualVerse/releases)
+> **GitHub Actions builds are currently not working, so no pre-built APK is available for download.**
+> 
+> You **must build the APK yourself** using:
+> - **[Termux](#-termux-support-no-pc-needed)** (easiest - build directly on your phone)
+> - **[Android Studio](#-local-testing--game-setup-guide)** (build on PC)
+> 
+> Sorry for the inconvenience! We are working on fixing the CI/CD pipeline.
+
 
 ---
 
