@@ -1,0 +1,387 @@
+<p align="center">
+  <img src="docs/assets/logo.png" alt="DualVerse Logo" width="200"/>
+</p>
+
+<h1 align="center">DualVerse</h1>
+
+<p align="center">
+  <strong>Revolutionary Multi-Account Gaming Through Lightweight Android Virtualization</strong>
+</p>
+
+<p align="center">
+  <a href="#features">Features</a> •
+  <a href="#how-it-works">How It Works</a> •
+  <a href="#installation">Installation</a> •
+  <a href="#architecture">Architecture</a> •
+  <a href="#contributing">Contributing</a> •
+  <a href="#license">License</a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Platform-Android-green.svg" alt="Platform">
+  <img src="https://img.shields.io/badge/API-24%2B-brightgreen.svg" alt="API Level">
+  <img src="https://img.shields.io/badge/Size-~200MB%20ROM-blue.svg" alt="ROM Size">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License">
+</p>
+
+---
+
+## 🎮 Overview
+
+**DualVerse** is a groundbreaking Android application that enables users to game with **two accounts simultaneously** without the limitations of traditional multiple-account solutions. Unlike older apps that suffered from patches, detection, or required root access (which apps like Roblox actively block), DualVerse uses an innovative **containerized virtualization approach**.
+
+### The Problem
+
+Traditional multi-account solutions face several critical issues:
+
+- **Root Detection**: Apps like Roblox, PUBG Mobile, and others actively block rooted devices
+- **Patches & Updates**: Game developers regularly patch workarounds
+- **Account Bans**: Detection leads to permanent account suspension
+- **Performance Issues**: Traditional emulators are resource-heavy
+- **Complexity**: Existing solutions require technical knowledge
+
+### The DualVerse Solution
+
+DualVerse creates a **completely isolated virtual Android environment** inside your device:
+
+1. **No Root Required** - Works on any unrooted device
+2. **Undetectable** - The virtualized environment appears as a completely separate device
+3. **Lightweight** - Only ~200MB Android 11 custom ROM
+4. **High Performance** - Native-speed execution through optimized virtualization
+5. **Simple UI** - One-tap account switching and management
+
+---
+
+## ✨ Features
+
+### 🔄 Dual Account Management
+- **Simultaneous Operation**: Run two game instances side-by-side
+- **Quick Switch**: Instantly switch between accounts
+- **Account Cloning**: Clone any installed app with one tap
+- **Independent Data**: Each account has completely separate data and cache
+
+### 🛡️ Advanced Security
+- **Device Spoofing**: Unique device identifiers for each virtual instance
+- **MAC Address Randomization**: Network-level privacy protection
+- **Anti-Detection Bypass**: Undetectable by anti-cheat systems
+- **Sandbox Isolation**: Complete separation between accounts
+
+### ⚡ Performance Optimized
+- **200MB Custom ROM**: Minimal storage footprint
+- **Memory Optimization**: Smart RAM management for dual instances
+- **GPU Acceleration**: Hardware graphics rendering support
+- **Battery Efficient**: Optimized power consumption algorithms
+
+### 🎯 Supported Games
+| Game | Status | Notes |
+|------|--------|-------|
+| Roblox | ✅ Full Support | Bypasses root detection completely |
+| PUBG Mobile | ✅ Full Support | Anti-cheat bypass enabled |
+| Free Fire | ✅ Full Support | Works on all server regions |
+| Mobile Legends | ✅ Full Support | No account linking issues |
+| Genshin Impact | ✅ Full Support | HoYoverse account compatible |
+| COD Mobile | ✅ Full Support | Activision account support |
+| Clash of Clans | ✅ Full Support | Supercell ID compatible |
+| Generic Apps | ✅ Full Support | Works with any Android app |
+
+---
+
+## 🔧 How It Works
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    DUALVERSE ARCHITECTURE                    │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  ┌─────────────────────┐      ┌─────────────────────┐      │
+│  │   HOST ANDROID      │      │  VIRTUAL ANDROID 11  │      │
+│  │   (Your Device)     │      │  (200MB Custom ROM)  │      │
+│  ├─────────────────────┤      ├─────────────────────┤      │
+│  │ • Primary Account   │      │ • Secondary Account  │      │
+│  │ • Original Apps     │      │ • Cloned Apps        │      │
+│  │ • Real Device ID    │      │ • Virtual Device ID  │      │
+│  └─────────────────────┘      └─────────────────────┘      │
+│            │                            │                    │
+│            │    ┌──────────────┐        │                    │
+│            └────│  DUALVERSE   │────────┘                    │
+│                 │   ENGINE     │                             │
+│                 ├──────────────┤                             │
+│                 │ • Virtualization Manager                   │
+│                 │ • Device ID Spoofer                        │
+│                 │ • Memory Bridge                            │
+│                 │ • Storage Isolator                         │
+│                 │ • Network Mapper                           │
+│                 └──────────────┘                             │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Technical Implementation
+
+1. **Micro-ROM Technology**: A stripped-down Android 11 system image (~200MB) containing only essential components
+2. **Container Virtualization**: Lightweight OS-level virtualization, not hardware emulation
+3. **Namespace Isolation**: Linux namespace-based separation for processes, network, and filesystem
+4. **Binder IPC Bridge**: Custom inter-process communication for app-host interaction
+5. **Hardware Passthrough**: Direct GPU and audio access for native performance
+
+---
+
+## 📥 Installation
+
+### Requirements
+- Android 7.0 (API 24) or higher
+- 4GB RAM minimum (6GB+ recommended)
+- 500MB free storage (for ROM + apps)
+- ARM64-v8a processor
+
+### Download
+
+```bash
+# Clone the repository
+git clone https://github.com/TheStrongestOfTomorrow/DualVerse.git
+
+# Or download the latest APK from Releases
+# https://github.com/TheStrongestOfTomorrow/DualVerse/releases
+```
+
+### Build from Source
+
+```bash
+# Clone repository
+git clone https://github.com/TheStrongestOfTomorrow/DualVerse.git
+cd DualVerse
+
+# Initialize submodules
+git submodule update --init --recursive
+
+# Build debug APK
+./gradlew assembleDebug
+
+# Build release APK
+./gradlew assembleRelease
+```
+
+---
+
+## 🏗️ Architecture
+
+### Core Components
+
+#### 1. Virtualization Engine (`core/virtualization/`)
+The heart of DualVerse, responsible for creating and managing the isolated Android environment.
+
+```
+virtualization/
+├── VirtualMachineManager.kt    # Main VM lifecycle management
+├── ContainerService.kt         # Container creation and isolation
+├── MemoryBridge.kt            # Shared memory management
+├── StorageIsolator.kt         # Filesystem separation
+└── NetworkNamespace.kt        # Network isolation and mapping
+```
+
+#### 2. Security Layer (`core/security/`)
+Handles all security-critical operations including device spoofing and anti-detection.
+
+```
+security/
+├── DeviceSpoofer.kt           # Device ID generation and management
+├── MacRandomizer.kt           # Network address randomization
+├── AntiDetection.kt           # Anti-cheat system bypasses
+├── FingerprintManager.kt      # Virtual fingerprint generation
+└── KeyStoreBridge.kt          # Secure credential storage
+```
+
+#### 3. Account Manager (`core/accounts/`)
+Manages multiple gaming accounts and their associated data.
+
+```
+accounts/
+├── AccountManager.kt          # Account CRUD operations
+├── AppCloner.kt              # App duplication system
+├── DataSyncManager.kt        # Cross-account data synchronization
+└── SessionManager.kt         # Login state management
+```
+
+#### 4. UI Layer (`core/ui/`)
+Modern Jetpack Compose-based user interface.
+
+```
+ui/
+├── MainActivity.kt            # Main application activity
+├── screens/
+│   ├── HomeScreen.kt         # Dashboard and quick actions
+│   ├── AccountsScreen.kt     # Account management UI
+│   ├── GamesScreen.kt        # Supported games list
+│   └── SettingsScreen.kt     # Application settings
+└── components/
+    ├── AccountCard.kt        # Account display component
+    ├── GameTile.kt           # Game shortcut widget
+    └── StatusIndicator.kt    # Virtual instance status
+```
+
+### Data Flow
+
+```
+User Action → UI Layer → Account Manager → Virtualization Engine
+                                              ↓
+                                        Container Service
+                                              ↓
+                                    ┌─────────────────┐
+                                    │ Virtual Android │
+                                    │    Instance     │
+                                    └─────────────────┘
+                                              ↓
+                                        Security Layer
+                                              ↓
+                                        Target Game App
+```
+
+---
+
+## 📱 User Interface
+
+### Main Dashboard
+<p align="center">
+  <img src="docs/screenshots/home.png" width="250" alt="Home Screen"/>
+  <img src="docs/screenshots/accounts.png" width="250" alt="Accounts Screen"/>
+  <img src="docs/screenshots/games.png" width="250" alt="Games Screen"/>
+</p>
+
+### Features
+- **One-Tap Launch**: Start any cloned app instantly
+- **Dual View**: Split-screen view for simultaneous gameplay
+- **Quick Settings**: Toggle between accounts with swipe gestures
+- **Status Dashboard**: Real-time resource monitoring
+
+---
+
+## 🔐 Security & Privacy
+
+### What We Protect
+- **No Data Collection**: DualVerse operates entirely offline
+- **Local Storage Only**: All account data stays on your device
+- **Encrypted Containers**: Virtual storage is encrypted at rest
+- **Network Privacy**: MAC randomization prevents tracking
+
+### Anti-Detection Features
+- **Unique Device Fingerprint**: Each virtual instance has a unique IMEI, Android ID, and hardware identifiers
+- **Realistic Telemetry**: Simulated sensor data for device authenticity
+- **No Root Footprint**: Works without root, leaves no traces
+- **App-Level Isolation**: Cloned apps cannot detect the host environment
+
+---
+
+## 🛠️ Development
+
+### Project Structure
+
+```
+DualVerse/
+├── app/                          # Main application module
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/com/dualverse/
+│   │   │   │   ├── core/         # Core business logic
+│   │   │   │   ├── ui/           # User interface
+│   │   │   │   ├── utils/        # Utility classes
+│   │   │   │   ├── security/     # Security features
+│   │   │   │   └── accounts/     # Account management
+│   │   │   ├── res/              # Android resources
+│   │   │   └── assets/           # ROM and config files
+│   │   ├── test/                 # Unit tests
+│   │   └── androidTest/          # Instrumentation tests
+│   └── build.gradle.kts          # App-level build config
+├── docs/                         # Documentation
+├── scripts/                      # Build and utility scripts
+├── build.gradle.kts              # Project-level build config
+└── settings.gradle.kts           # Project settings
+```
+
+### Tech Stack
+
+| Category | Technology |
+|----------|------------|
+| Language | Kotlin 2.0 |
+| UI Framework | Jetpack Compose |
+| Architecture | MVVM + Clean Architecture |
+| Dependency Injection | Hilt |
+| Database | Room |
+| Networking | Ktor |
+| Virtualization | Custom Linux Container Engine |
+| Build System | Gradle (Kotlin DSL) |
+
+### Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 📋 Roadmap
+
+### Version 1.0 (Current)
+- [x] Core virtualization engine
+- [x] Basic device spoofing
+- [x] Single app cloning
+- [x] Android 11 ROM integration
+
+### Version 1.1 (Q2 2026)
+- [ ] Multi-instance support (3+ accounts)
+- [ ] Cloud save synchronization
+- [ ] Custom ROM selection
+- [ ] Performance profiles
+
+### Version 2.0 (Q4 2026)
+- [ ] Android 14 ROM support
+- [ ] x86 emulator for ARM translation
+- [ ] Remote instance management
+- [ ] Plugin system for mods
+
+---
+
+## ❓ FAQ
+
+### Will this get my account banned?
+DualVerse uses sophisticated anti-detection that makes virtualized instances indistinguishable from real devices. However, always use at your own risk and review each game's terms of service.
+
+### Does this require root?
+No! DualVerse works completely without root access. The virtualization happens at the application level.
+
+### How much storage does it need?
+The base app is ~50MB, plus the 200MB custom ROM. Each cloned app adds approximately the same size as the original app.
+
+### Can I use this with any app?
+Yes! While optimized for games, DualVerse can clone and run any Android app in the virtualized environment.
+
+### Is my data safe?
+Absolutely. All data is stored locally on your device with encryption. We collect zero telemetry or personal data.
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- The Android Open Source Project
+- Linux Containers (LXC) community
+- All our contributors and testers
+
+---
+
+<p align="center">
+  <strong>Made with ❤️ by TheStrongestOfTomorrow</strong>
+</p>
+
+<p align="center">
+  <a href="https://github.com/TheStrongestOfTomorrow/DualVerse/issues">Report Bug</a> •
+  <a href="https://github.com/TheStrongestOfTomorrow/DualVerse/issues">Request Feature</a>
+</p>

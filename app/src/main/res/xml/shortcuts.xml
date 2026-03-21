@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="clone_app"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_clone"
+        android:shortcutShortLabel="@string/games_clone"
+        android:shortcutLongLabel="@string/games_clone">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.dualverse"
+            android:targetClass="com.dualverse.ui.MainActivity" />
+    </shortcut>
+    
+    <shortcut
+        android:shortcutId="accounts"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_accounts"
+        android:shortcutShortLabel="@string/accounts_title"
+        android:shortcutLongLabel="@string/accounts_title">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.dualverse"
+            android:targetClass="com.dualverse.ui.MainActivity" />
+    </shortcut>
+</shortcuts>
