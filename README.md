@@ -764,7 +764,7 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 
 ## 📋 Roadmap
 
-### Version 1.0 (Current)
+### Version 1.0 (Stable)
 - [x] Core virtualization engine
 - [x] Basic device spoofing
 - [x] Single app cloning
@@ -772,13 +772,19 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 - [x] Native container libraries (libloader.so, libdualverse.so, libp7zip.so)
 - [x] Termux support for building without PC
 
-### Version 1.1 (Q2 2026)
-- [ ] Multi-instance support (3+ accounts)
-- [ ] Cloud save synchronization
-- [ ] Custom ROM selection
-- [ ] Performance profiles
+### Version 1.1 (Stable - Latest)
+- [x] Multi-instance support (3+ accounts)
+- [x] Cloud save synchronization
+- [x] Custom ROM selection
+- [x] Performance profiles
 
-### Version 2.0 (Q4 2026)
+### Version 1.2 (Beta)
+- [x] Redesigned UI (Material You)
+- [x] Floating dual-mode windows
+- [ ] Custom themes
+- [ ] Game-specific presets
+
+### Version 2.0 (Planned)
 - [ ] Android 14 ROM support
 - [ ] x86 emulator for ARM translation
 - [ ] Remote instance management
@@ -825,7 +831,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 <p align="center">
-  <strong>Made with ❤️ by TheStrongestOfTomorrow</strong>
+  <strong>Made with ❤️ by TheStrongestOfTomorrow & Super Z
+  <br>
+  <sub>A duo project</sub> & Super Z
+  <br>
+  <sub>A duo project</sub></strong>
 </p>
 
 <p align="center">
