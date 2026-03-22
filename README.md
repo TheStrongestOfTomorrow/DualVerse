@@ -82,6 +82,8 @@ The beta branch features a completely redesigned user interface:
 | ⚡ **Performance Profiles** | ✅ Added | Power Saver / Balanced / High Perf |
 | 🎨 **New UI** | ✅ Beta | Material You redesign |
 | 📺 **Floating Windows** | ✅ Beta | Dual-mode floating windows |
+| 🎮 **Graphics Renderer** | ✅ Beta | Vulkan/OpenGL/OpenGL ES selection |
+| 📦 **Custom ROM Import** | ✅ Beta | Import your own Android ROMs |
 
 ### 📝 Changelog
 
@@ -97,6 +99,12 @@ The beta branch features a completely redesigned user interface:
 - ✅ CloudSyncManager (auto-sync on WiFi)
 - ✅ RomSelector (4 ROM variants)
 - ✅ PerformanceProfiles (3 presets + custom)
+
+**Beta v1.2 Performance Update**
+- ✅ GraphicsRendererSelector (Vulkan/OpenGL/OpenGL ES)
+- ✅ CustomRomAdder (import your own ROMs)
+- ✅ Game-specific renderer optimization
+- ✅ MSAA & anisotropic filtering controls
 
 **Stable v1.0**
 - ✅ Core virtualization engine
@@ -186,6 +194,56 @@ Choose your Android container:
 | Android 10 Light | 280MB | Modern features |
 | Android 11 Gaming | 320MB | Best performance |
 
+### 🎮 Graphics Renderer Selection (NEW!)
+
+Choose your graphics API for optimal performance:
+
+| API | Best For | Features |
+|-----|----------|----------|
+| **Vulkan** | Modern devices | Best performance, async compute, ray tracing |
+| **OpenGL ES** | Compatibility | Works on all devices, stable |
+| **OpenGL** | Desktop/Emulator | Full OpenGL features |
+| **Auto** | Default | Automatically selects best API |
+
+**Renderer Presets:**
+
+| Preset | FPS Target | MSAA | Use Case |
+|--------|------------|------|----------|
+| Performance | 120 | Off | Competitive gaming |
+| Balanced | 60 | 4x | Default gaming |
+| Quality | 60 | 8x | Visual quality |
+| Compatibility | 60 | 2x | Older devices |
+
+**Game-Specific Optimization:**
+- PUBG Mobile → Vulkan + Performance preset
+- Genshin Impact → Vulkan + Quality preset
+- Roblox → OpenGL ES + Compatibility preset
+- Free Fire → Vulkan + Balanced preset
+
+### 📦 Custom ROM Importer (NEW!)
+
+Import your own Android ROMs:
+
+**Supported Formats:**
+- `.img` - Raw disk images
+- `.zip` - Compressed ROMs
+- `.7z` - 7-Zip compressed
+- `.apk` - Container APK format
+
+**Features:**
+- Automatic architecture detection (ARM64/ARM32/x86)
+- Android version detection
+- Compatibility validation
+- Progress tracking
+- ROM management (rename/delete)
+
+**How to Import:**
+1. Go to Settings → ROM Management
+2. Tap "Import Custom ROM"
+3. Select your ROM file
+4. Wait for validation & extraction
+5. Select the ROM to use
+
 ---
 
 ## 🎨 UI Preview
@@ -259,6 +317,8 @@ The new UI features:
 - [x] Multi-instance support
 - [x] Cloud sync
 - [x] Custom ROM selection
+- [x] Graphics Renderer Selector (Vulkan/OpenGL/OpenGL ES)
+- [x] Custom ROM Importer
 - [ ] Bug fixes
 - [ ] UI polish
 - [ ] Custom themes
