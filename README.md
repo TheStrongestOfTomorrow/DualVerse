@@ -121,6 +121,23 @@ The beta branch features a completely redesigned user interface:
 > - **[Termux](#termux-build)** - Build on phone
 > - **[Android Studio](#android-studio-build)** - Build on PC
 
+### 📲 Use Both Main & Beta Together!
+
+> **Good news!** You can install and use **both** the Stable (main) and Beta versions at the same time!
+> 
+> - Different codebases = Different signatures
+> - Each version is independent
+> - Stable for daily use, Beta for new features
+> 
+> Just build from different branches:
+> ```bash
+> # Stable version
+> git clone https://github.com/TheStrongestOfTomorrow/DualVerse.git
+> 
+> # Beta version (this one)
+> git clone -b beta https://github.com/TheStrongestOfTomorrow/DualVerse.git
+> ```
+
 ### Termux Build
 
 ```bash
