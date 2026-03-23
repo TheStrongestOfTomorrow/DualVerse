@@ -178,6 +178,23 @@ DualVerse creates a **completely isolated virtual Android environment** inside y
 > 
 > Sorry for the inconvenience! We are working on fixing the CI/CD pipeline.
 
+### 📲 Use Both Main & Beta Together!
+
+> **Good news!** You can install and use **both** the Stable (main) and Beta versions at the same time!
+> 
+> - Different codebases = Different signatures
+> - Each version is independent
+> - Stable for daily use, Beta for testing new features
+> 
+> Just build from different branches:
+> ```bash
+> # Stable version
+> git clone https://github.com/TheStrongestOfTomorrow/DualVerse.git
+> 
+> # Beta version  
+> git clone -b beta https://github.com/TheStrongestOfTomorrow/DualVerse.git
+> ```
+
 
 ---
 
