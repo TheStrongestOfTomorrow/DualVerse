@@ -81,7 +81,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0")
     implementation("androidx.activity:activity-compose:1.9.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
-    
+
+    // Material Components for XML themes
+    implementation("com.google.android.material:material:1.12.0")
+
     // Compose BOM
     implementation(platform("androidx.compose:compose-bom:2024.05.00"))
     implementation("androidx.compose.ui:ui")
