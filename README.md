@@ -168,37 +168,44 @@ DualVerse creates a **completely isolated virtual Android environment** inside y
 
 ---
 
-### ⚠️ Important: Build It Yourself
+### 📥 Download APK
 
-> **GitHub Actions builds are currently not working, so no pre-built APK is available for download.**
-> 
-> You **must build the APK yourself** using:
-> - **[Termux](#-termux-support-no-pc-needed)** (easiest - build directly on your phone)
-> - **[Android Studio](#-local-testing--game-setup-guide)** (build on PC)
-> 
-> Sorry for the inconvenience! We are working on fixing the CI/CD pipeline.
+**Download pre-built APKs from [Releases](https://github.com/TheStrongestOfTomorrow/DualVerse/releases)**
+
+> The APKs are automatically built via GitHub Actions on every push to main.
 
 ### 📲 Use Both Main & Beta Together!
 
 > **Good news!** You can install and use **both** the Stable (main) and Beta versions at the same time!
 > 
-> - Different codebases = Different signatures
+> - Different application IDs (com.dualverse vs com.dualverse.debug)
 > - Each version is independent
-> - Stable for daily use, Beta for testing new features
+> - Stable for daily use, Beta for new features
 > 
-> Just build from different branches:
-> ```bash
-> # Stable version
-> git clone https://github.com/TheStrongestOfTomorrow/DualVerse.git
-> 
-> # Beta version  
-> git clone -b beta https://github.com/TheStrongestOfTomorrow/DualVerse.git
-> ```
+> Just download both APKs and install them!
+
+### 🔨 Build from Source (Advanced)
+
+**Requirements:**
+- Android Studio Hedgehog or newer
+- JDK 17
+- Android SDK 34
+- NDK 25.x
+- CMake 3.22.1
+
+```bash
+# Clone the repository
+git clone https://github.com/TheStrongestOfTomorrow/DualVerse.git
+cd DualVerse
+
+# Open in Android Studio and build, or:
+./gradlew assembleDebug
+```
 
 
 ---
 
-## 📱 Termux Support (No PC Needed!)
+## 🔧 Advanced: Building Locally
 
 **The easiest way to install DualVerse directly on your phone without a PC, ADB, or Android Studio!**
 
