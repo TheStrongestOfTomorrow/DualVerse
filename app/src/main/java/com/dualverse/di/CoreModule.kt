@@ -1,7 +1,6 @@
 package com.dualverse.di
 
 import android.content.Context
-import com.dualverse.core.accounts.AccountManager
 import com.dualverse.core.virtualization.VirtualMachineConfig
 import com.dualverse.core.virtualization.VirtualMachineManager
 import dagger.Module
@@ -39,13 +38,5 @@ object CoreModule {
         config: VirtualMachineConfig
     ): VirtualMachineManager {
         return VirtualMachineManager(context, config)
-    }
-
-    @Provides
-    @Singleton
-    fun provideAccountManager(
-        @ApplicationContext context: Context
-    ): AccountManager {
-        return AccountManager(context)
     }
 }
