@@ -12,6 +12,31 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
+// Color definitions
+val Purple80 = Color(0xFFB388FF)
+val PurpleGrey80 = Color(0xFFCCC2DC)
+val Pink80 = Color(0xFFEFB8C8)
+
+val Purple40 = Color(0xFF7C4DFF)
+val PurpleGrey40 = Color(0xFF625B71)
+val Pink40 = Color(0xFF7D5260)
+
+val Purple90 = Color(0xFFE8DDFF)
+val PurpleGrey90 = Color(0xFFE8DEF8)
+
+val DarkPurple = Color(0xFF4A148C)
+val DarkBackground = Color(0xFF0D0D0D)
+val DarkSurface = Color(0xFF1A1A1A)
+val DarkSurfaceVariant = Color(0xFF2D2D2D)
+
+val LightBackground = Color(0xFFFAFAFA)
+val LightSurfaceVariant = Color(0xFFF5F5F5)
+
+val DarkText = Color(0xFF1A1A1A)
+val DarkTextSecondary = Color(0xFF666666)
+
+val ErrorRed = Color(0xFFCF6679)
+
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
     onPrimary = Color.White,
@@ -74,31 +99,6 @@ fun DualVerseTheme(
         content = content
     )
 }
-
-// Color definitions
-val Purple80 = Color(0xFFB388FF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
-
-val Purple40 = Color(0xFF7C4DFF)
-val PurpleGrey40 = Color(0xFF625B71)
-val Pink40 = Color(0xFF7D5260)
-
-val Purple90 = Color(0xFFE8DDFF)
-val PurpleGrey90 = Color(0xFFE8DEF8)
-
-val DarkPurple = Color(0xFF4A148C)
-val DarkBackground = Color(0xFF0D0D0D)
-val DarkSurface = Color(0xFF1A1A1A)
-val DarkSurfaceVariant = Color(0xFF2D2D2D)
-
-val LightBackground = Color(0xFFFAFAFA)
-val LightSurfaceVariant = Color(0xFFF5F5F5)
-
-val DarkText = Color(0xFF1A1A1A)
-val DarkTextSecondary = Color(0xFF666666)
-
-val ErrorRed = Color(0xFFCF6679)
 
 // Gradient colors for status cards
 object GradientColors {

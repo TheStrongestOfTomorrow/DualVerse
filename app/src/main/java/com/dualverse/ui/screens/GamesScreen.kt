@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -30,7 +30,7 @@ fun GamesScreen(
                 title = { Text("Games") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
                 }
             )
@@ -70,7 +70,7 @@ fun GamesScreen(
                 contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                items(uiState.games) { game ->
+                items(uiState.games, key = { it.packageName }) { game ->
                     GameCard(
                         game = game,
                         onLaunchClick = { viewModel.launchGame(game.packageName) },
@@ -140,7 +140,7 @@ private fun GameCard(
                         Icon(Icons.Outlined.Delete, contentDescription = "Remove")
                     }
                 } else {
-                    FilledTonalButton(onClick = onCloneClick) {
+                    Button(onClick = onCloneClick) {
                         Icon(Icons.Outlined.ContentCopy, contentDescription = null)
                         Spacer(modifier = Modifier.width(4.dp))
                         Text("Clone")

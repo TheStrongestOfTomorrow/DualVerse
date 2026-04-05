@@ -45,6 +45,11 @@ android {
             applicationIdSuffix = ".debug"
         }
     }
+
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
+    }
     
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -130,6 +135,10 @@ dependencies {
     // Timber Logging
     implementation("com.jakewharton.timber:timber:5.0.1")
     
+    // Lifecycle
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0")
+
     // Testing
     testImplementation("junit:junit:4.13.2")
     

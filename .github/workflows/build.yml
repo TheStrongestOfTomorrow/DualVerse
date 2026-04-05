@@ -29,6 +29,9 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
 
+    - name: Download ROM
+      run: bash scripts/download-rom.sh
+
     - name: Grant execute permission
       run: chmod +x gradlew
 
@@ -73,8 +76,8 @@ jobs:
 
     - name: Rename APKs for release
       run: |
-        cp app/build/outputs/apk/debug/app-debug.apk DualVerse-${{ steps.version.outputs.version }}-debug.apk
-        cp app/build/outputs/apk/release/app-release-unsigned.apk DualVerse-${{ steps.version.outputs.version }}-release.apk || true
+        cp app/build/outputs/apk/debug/app-debug.apk DualVerse-${{ steps.version.outputs.version }}-beta.apk
+        cp app/build/outputs/apk/release/app-release-unsigned.apk DualVerse-${{ steps.version.outputs.version }}-normal.apk || true
 
     - name: Delete old releases
       uses: dev-drprasad/delete-older-releases@v0.3.2
@@ -98,8 +101,8 @@ jobs:
           
           | File | Description |
           |------|-------------|
-          | `DualVerse-${{ steps.version.outputs.version }}-debug.apk` | Debug build |
-          | `DualVerse-${{ steps.version.outputs.version }}-release.apk` | Release build |
+          | `DualVerse-${{ steps.version.outputs.version }}-beta.apk` | Beta build (Debug) |
+          | `DualVerse-${{ steps.version.outputs.version }}-normal.apk` | Normal build (Release Unsigned) |
           
           ### 📱 Requirements
           - Android 8.0+ (API 26+)
@@ -111,8 +114,8 @@ jobs:
         draft: false
         prerelease: false
         files: |
-          DualVerse-${{ steps.version.outputs.version }}-debug.apk
-          DualVerse-${{ steps.version.outputs.version }}-release.apk
+          DualVerse-${{ steps.version.outputs.version }}-beta.apk
+          DualVerse-${{ steps.version.outputs.version }}-normal.apk
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

@@ -113,7 +113,7 @@ fun HomeScreen(
                     )
                 }
 
-                items(uiState.activeSessions) { session ->
+                items(uiState.activeSessions, key = { it.id }) { session ->
                     SessionCard(
                         session = session,
                         onSwitchClick = { viewModel.switchToSession(session.id) },
@@ -131,7 +131,7 @@ fun HomeScreen(
                 )
             }
 
-            items(uiState.popularGames.take(4)) { game ->
+            items(uiState.popularGames.take(4), key = { it.packageName }) { game ->
                 GameListItem(
                     game = game,
                     onLaunchClick = { viewModel.launchGame(game.packageName) },
@@ -368,7 +368,7 @@ private fun QuickActionsSheet(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            FilledTonalButton(
+            Button(
                 modifier = Modifier.weight(1f),
                 onClick = onCloneApp
             ) {
@@ -376,7 +376,7 @@ private fun QuickActionsSheet(
                 Spacer(modifier = Modifier.width(8.dp))
                 Text("Clone App")
             }
-            FilledTonalButton(
+            Button(
                 modifier = Modifier.weight(1f),
                 onClick = onStartDual
             ) {
