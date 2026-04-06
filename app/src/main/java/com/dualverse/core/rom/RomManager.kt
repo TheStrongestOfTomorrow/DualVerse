@@ -240,6 +240,20 @@ object RomManager {
     }
 
     /**
+     * Creates a symlink to the loader library.
+     */
+    fun createLoaderSymlink(context: Context) {
+        val loaderFile = File(context.applicationInfo.nativeLibraryDir, "libloader.so")
+        val symlinkFile = File(getRootfsDir(context), "libloader.so")
+        if (symlinkFile.exists()) symlinkFile.delete()
+        try {
+            android.system.Os.symlink(loaderFile.absolutePath, symlinkFile.absolutePath)
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to create loader symlink", e)
+        }
+    }
+
+    /**
      * Extracts 7z archive using native library.
      */
     private fun extract7z(context: Context, archive: File, destDir: File): Int {

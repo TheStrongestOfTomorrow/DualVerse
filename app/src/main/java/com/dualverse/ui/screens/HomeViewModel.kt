@@ -104,14 +104,13 @@ class HomeViewModel @Inject constructor(
                 startVirtualMachine()
             }
             
-            vmManager.createInstance(packageName)
-                .onSuccess { instance ->
-                    Timber.i("Created instance for: $packageName")
-                }
-                .onFailure { error ->
-                    Timber.e(error, "Failed to create instance")
-                    _uiState.update { it.copy(error = error.message) }
-                }
+            try {
+                val instance = vmManager.createInstance(packageName)
+                Timber.i("Created instance for: $packageName")
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to create instance")
+                _uiState.update { it.copy(error = e.message) }
+            }
         }
     }
 
